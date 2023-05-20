@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="595.0" prefWidth="937.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example._11_teledominospizza.AdminController">
+   <children>
+      <ImageView fitHeight="718.0" fitWidth="937.0" layoutY="26.0" opacity="0.49" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Imagenes/backgroundAdmin.jpg" />
+         </image>
+      </ImageView>
+      <Button layoutX="220.0" layoutY="272.0" mnemonicParsing="false" onAction="#darDeAltaEmpleButton" prefHeight="25.0" prefWidth="240.0" text="Dar de alta" />
+      <Button layoutX="220.0" layoutY="304.0" mnemonicParsing="false" onAction="#darDeBajaEmpleButton" prefHeight="25.0" prefWidth="240.0" text="Dar de baja" />
+      <Button layoutX="311.0" layoutY="370.0" mnemonicParsing="false" onAction="#buscarEmpleadoButton" prefHeight="25.0" prefWidth="149.0" text="Buscar empleado" />
+      <TextField fx:id="nombreEmpleField" layoutX="220.0" layoutY="83.0" prefHeight="25.0" prefWidth="240.0" promptText="Nombre" />
+      <TextField fx:id="apellidoEmpleField" layoutX="220.0" layoutY="113.0" prefHeight="25.0" prefWidth="240.0" promptText="Apellido" />
+      <TextField fx:id="dniEmpleField" layoutX="220.0" layoutY="142.0" prefHeight="25.0" prefWidth="240.0" promptText="DNI" />
+      <TextField fx:id="telefonoEmpleField" layoutX="220.0" layoutY="174.0" prefHeight="25.0" prefWidth="240.0" promptText="Teléfono" />
+      <TextField fx:id="contraseñaField" layoutX="220.0" layoutY="206.0" prefHeight="25.0" prefWidth="240.0" promptText="Contraseña" />
+      <TextField fx:id="repetContraseField" layoutX="220.0" layoutY="237.0" prefHeight="25.0" prefWidth="240.0" promptText="Repetir contraseña" />
+      <Button layoutX="753.0" layoutY="370.0" mnemonicParsing="false" onAction="#buscarClienteButton" prefHeight="25.0" prefWidth="149.0" text="Buscar un cliente" />
+      <TextField fx:id="nombreEmpleBusquedaField" layoutX="37.0" layoutY="370.0" prefHeight="25.0" prefWidth="274.0" promptText="Nombre empleado" />
+      <TextField fx:id="busquedaClientesField" layoutX="479.0" layoutY="370.0" prefHeight="25.0" prefWidth="274.0" promptText="Nombre cliente" />
+      <Button layoutX="662.0" layoutY="275.0" mnemonicParsing="false" onAction="#darDeAltaCliente" prefHeight="25.0" prefWidth="240.0" text="Dar de alta" />
+      <Button layoutX="662.0" layoutY="307.0" mnemonicParsing="false" onAction="#darDeBajaCliente" prefHeight="25.0" prefWidth="240.0" text="Dar de baja" />
+      <TextField fx:id="nombreClienteField" layoutX="662.0" layoutY="86.0" prefHeight="25.0" prefWidth="240.0" promptText="Nombre cliente" />
+      <TextField fx:id="apellidoClienteField" layoutX="662.0" layoutY="116.0" prefHeight="25.0" prefWidth="240.0" promptText="Apellido" />
+      <TextField fx:id="dniClienteField" layoutX="662.0" layoutY="145.0" prefHeight="25.0" prefWidth="240.0" promptText="DNI" />
+      <TextField fx:id="telefonoClienteField" layoutX="662.0" layoutY="177.0" prefHeight="25.0" prefWidth="240.0" promptText="Teléfono" />
+      <TextField fx:id="direccionClienteField" layoutX="662.0" layoutY="209.0" prefHeight="25.0" prefWidth="240.0" promptText="Dirección" />
+      <TextArea fx:id="observacionesCliente" layoutX="485.0" layoutY="86.0" prefHeight="245.0" prefWidth="174.0" promptText="Observaciones cliente" />
+      <TextArea fx:id="observaEmpleado" layoutX="37.0" layoutY="83.0" prefHeight="212.0" prefWidth="174.0" promptText="Observaciones empleado" />
+      <CheckBox fx:id="administradorCheck" layoutX="76.0" layoutY="308.0" mnemonicParsing="false" text="Administrador" />
+      <TableView fx:id="tablaEmpleados" layoutX="36.0" layoutY="397.0" onMouseClicked="#empleadoClickOnMouse" prefHeight="184.0" prefWidth="424.0">
+        <columns>
+          <TableColumn fx:id="dniEmpleadoTabla" prefWidth="128.0" text="DNI" />
+          <TableColumn fx:id="nombreEmpleadoTabla" prefWidth="145.0" text="Nombre" />
+            <TableColumn fx:id="apellidoEmpleadoTabla" prefWidth="150.0" text="Apellido" />
+        </columns>
+      </TableView>
+      <TableView fx:id="tablaClientesAdmin" layoutX="479.0" layoutY="397.0" onMouseClicked="#clientesClickOnMouse" prefHeight="184.0" prefWidth="424.0">
+         <columns>
+            <TableColumn fx:id="nombreClienteTabla" prefWidth="128.0" text="Nombre cliente" />
+            <TableColumn fx:id="dniClienteTabla" prefWidth="145.0" text="DNI cliente" />
+            <TableColumn fx:id="telefonoClienteTabla" prefWidth="150.0" text="Teléfono cliente" />
+         </columns>
+      </TableView>
+      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="937.0">
+        <menus>
+          <Menu fx:id="nombreAdministrador" mnemonicParsing="false" text="Nombre administrador" />
+          <Menu mnemonicParsing="false" text="Sistema">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#entrarEstacionButtonMenu" text="Entrar estación de trabajo" />
+                  <MenuItem mnemonicParsing="false" onAction="#salirSistemaButtonMenu" text="salir" />
+               </items></Menu>
+        </menus>
+      </MenuBar>
+      <Button layoutX="37.0" layoutY="614.0" mnemonicParsing="false" onAction="#diezEmpleadosButton" prefHeight="25.0" prefWidth="97.0" text="10 Empleados" />
+      <Button layoutX="151.0" layoutY="614.0" mnemonicParsing="false" onAction="#diezClientesButton" prefHeight="25.0" prefWidth="97.0" text="10 Clientes" />
+      <Button layoutX="256.0" layoutY="614.0" mnemonicParsing="false" onAction="#diezPedidosButton" prefHeight="25.0" prefWidth="97.0" text="10 Pedidos" />
+      <Button layoutX="363.0" layoutY="614.0" mnemonicParsing="false" onAction="#DelAllEmple" prefHeight="25.0" prefWidth="97.0" text="Del All Emple" />
+      <Button layoutX="479.0" layoutY="614.0" mnemonicParsing="false" onAction="#delAllClientes" prefHeight="25.0" prefWidth="97.0" text="Del All Clientes" />
+      <Button layoutX="586.0" layoutY="614.0" mnemonicParsing="false" onAction="#dellAllPedidos" prefHeight="25.0" prefWidth="97.0" text="Del All Pedidos" />
+      <Button layoutX="697.0" layoutY="614.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" />
+      <Button layoutX="806.0" layoutY="614.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" />
+   </children>
+</AnchorPane>

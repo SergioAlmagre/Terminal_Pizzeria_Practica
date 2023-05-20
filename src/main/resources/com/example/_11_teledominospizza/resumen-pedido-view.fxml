@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="523.0" prefWidth="577.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example._11_teledominospizza.ResumenPedidoController">
+   <children>
+      <ImageView fitHeight="798.0" fitWidth="577.0" opacity="0.25" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Imagenes/detallePedido.jpg" />
+         </image>
+      </ImageView>
+      <Text layoutX="232.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Resumen">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Text>
+      <ImageView fx:id="imagenPizza" fitHeight="196.0" fitWidth="216.0" layoutX="49.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Imagenes/pizza.png" />
+         </image>
+      </ImageView>
+      <Text fx:id="nombrePizza" layoutX="93.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre Pizza">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text layoutX="279.0" layoutY="324.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ingredientes extra:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Text>
+      <Separator layoutX="49.0" layoutY="131.0" prefHeight="4.0" prefWidth="495.0" />
+      <Text fx:id="nombreCliente" layoutX="49.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre cliente">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="telefono" layoutX="262.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Teléfono">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="280.0" layoutY="349.0" strokeType="OUTSIDE" strokeWidth="0.0" text="seleccionEspecial:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text layoutX="429.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mesa">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text layoutX="281.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Atendido en local:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fx:id="siNoAtendidoLocal" layoutX="397.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SI" />
+      <Text fx:id="numeroMesa" layoutX="472.0" layoutY="378.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" />
+      <Text layoutX="62.0" layoutY="545.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dia del pedido:">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Text>
+      <Text layoutX="59.0" layoutY="592.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hora del pedido:">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Text>
+      <Text layoutX="62.0" layoutY="637.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Precio del pedido:">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Text>
+      <Text fx:id="diaPedidoTxt" layoutX="279.0" layoutY="544.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dia">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text fx:id="horaPedidoTXT" layoutX="278.0" layoutY="589.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hora">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text fx:id="precioPedidoTxt" fill="#ff4d4d" layoutX="279.0" layoutY="636.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Precio" underline="true">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Text>
+      <Text layoutX="277.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tamaño pizza:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text layoutX="282.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Domicilio:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fx:id="nombreDomicilio" layoutX="348.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" text="C/Ancha asdf" />
+      <Text fx:id="siNoIngredienteExtra" layoutX="397.0" layoutY="324.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SI" />
+      <Text fx:id="tamañoPizza" layoutX="395.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="tamañoPizza" />
+      <Text fx:id="ingredienteExtra1" layoutX="422.0" layoutY="325.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre ingrediente" />
+      <Text fx:id="siNoSeleccionEspecial" layoutX="397.0" layoutY="349.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SI" />
+      <Text fx:id="dni" layoutX="436.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DNI">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="278.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID pizza:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text layoutX="278.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID pedido:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fx:id="idPedidoTXT" layoutX="403.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IdPedido" />
+      <Text fx:id="idPizzaTXT" layoutX="403.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IdPizza" />
+      <Separator layoutX="276.0" layoutY="264.0" prefHeight="4.0" prefWidth="251.0" />
+      <Text fx:id="tipoEspecialTXT" layoutX="422.0" layoutY="349.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo especial" />
+      <ImageView fitHeight="99.0" fitWidth="99.0" layoutX="467.0" layoutY="580.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Imagenes/pngwing.com.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

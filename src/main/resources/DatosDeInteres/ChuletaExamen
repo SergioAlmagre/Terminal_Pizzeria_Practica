@@ -1,0 +1,87 @@
+    ---------- Sobre bd ----------------------------
+    var sentencia = "DELETE FROM ${Constantes.tablaUsuario} WHERE UPPER(dni) LIKE ?"
+    var prepSen = conexion!!.prepareStatement(sentencia)
+    prepSen.executeUpdate()
+
+
+    var sentencia = "SELECT * FROM ${Constantes.tablaUsuario} " +
+            "WHERE UPPER(dni) LIKE ?"
+    var prepSen = conexion!!.prepareStatement(sentencia)
+    prepSen.setString(1, dni.uppercase())
+    res = prepSen.executeQuery()
+
+
+    INSERT INTO nombre_tabla (columna1, columna2, columna3,.)
+    VALUES (valor1, valor2, valor3, .)
+
+    INSERT INTO personas
+    VALUES (‘PEDRO’, ‘RUIZ’, ‘GONZALEZ’)
+
+    UPDATE nombre_tabla
+    SET columna1 = valor1, columna2 = valor2
+    WHERE columna3 = valor3
+
+    DELETE FROM nombre_tabla
+    WHERE nombre_columna = valor
+
+
+    ---------- Perder el foco ----------
+    this.ntabla.focusedProperty().addListener { observable, oldValue, newValue ->
+        if (!newValue) {
+            // Aquí es donde se ejecutará el código cuando el TextField pierda el foco
+
+        }
+    }
+
+    ---------- Control que toma el foco ------------
+    txtLoquesea.requestfocus()
+
+    ---------- Capturar el evento de cerrado de ventana y alert dialogs --------
+    stage.setOnCloseRequest { e -> cerrarAplicacion(e) }
+
+    fun cerrarAplicacion(e : WindowEvent) {
+        var alerta = Alert(AlertType.CONFIRMATION)
+        alerta.title = "Salir de la aplicación"
+        alerta.headerText = "¿Desea salir de la aplicación?"
+        alerta.contentText = "Cualquier cambio no guardado se perderá."
+
+        alerta.buttonTypes.remove(ButtonType.OK)
+        alerta.buttonTypes.remove(ButtonType.CANCEL)
+
+        alerta.buttonTypes.add(ButtonType.YES)
+        alerta.buttonTypes.add(ButtonType.NO)
+
+        val res = alerta.showAndWait()
+        if(res.isPresent) {
+            if(res.get() == ButtonType.NO) {
+                e.consume()
+            } else {
+                Conexion.cerrarConexion()
+            }
+        }
+
+    }
+
+    --------------------- Timer ----------------------
+    import javax.swing.Timer   <---------------------- Importando esta librería.
+
+    temporizador = Timer(1000, object : ActionListener {
+        override fun actionPerformed(e: java.awt.event.ActionEvent?) {
+
+        }
+    })
+}
+
+-------------- Pasar ventana ---------------
+val fxmlLoader  = FXMLLoader(HelloApplication::class.java.getResource("segunda.fxml"))
+val scene = Scene(fxmlLoader.load())
+val stage = Stage()
+stage.title = "Ventana secundaria"
+stage.scene = scene
+stage.initModality(Modality.APPLICATION_MODAL)
+stage.showAndWait()
+
+---------------- Cerrar ventana ------------------
+val source: Node = event!!.source as Node
+val stage = source.scene.window as Stage
+stage.close()
