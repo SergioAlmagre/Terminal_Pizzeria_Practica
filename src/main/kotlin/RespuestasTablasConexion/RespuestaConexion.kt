@@ -1,4 +1,4 @@
-package Pizzeria
+package RespuestasTablasConexion
 
 data class RespuestaConexion(
     var codigo:Int,

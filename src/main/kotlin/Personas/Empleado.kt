@@ -1,5 +1,4 @@
-package Pizzeria
-
+package Personas
 
 
 /**
@@ -17,7 +16,7 @@ package Pizzeria
  * @constructor Create empty Empleado
  */
 
-class Empleado:Persona{
+class Empleado: Persona {
 
     var tipo:Int
     var contraseña: String
@@ -26,17 +25,18 @@ class Empleado:Persona{
     constructor(
         nombre: String,
         apellido: String,
-        dni: String,
         telefono: String,
-        observaciones: String,
-        tipo: Int,
+        dni: String,
         contraseña: String,
+        tipo: Int,
+        observaciones: String,
         rutaFoto: String
-    ) : super(nombre, apellido, dni, telefono, observaciones) {
-        this.contraseña = contraseña
+    ) : super(nombre, apellido, telefono, dni, observaciones) {
         this.tipo = tipo
+        this.contraseña = contraseña
         this.rutaFoto = rutaFoto
     }
+
 
     override fun toString(): String {
         return "Empleado ${super.toString()}, (contraseña='$contraseña', tipo=$tipo, rutaFoto='$rutaFoto')"

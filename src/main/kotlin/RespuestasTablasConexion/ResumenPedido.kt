@@ -1,4 +1,4 @@
-package Pizzeria
+package RespuestasTablasConexion
 
 data class ResumenPedido(var nombreCliente: String,
                          val apellido: String,

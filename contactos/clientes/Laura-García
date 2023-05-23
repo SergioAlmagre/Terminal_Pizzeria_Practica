@@ -1,0 +1,9 @@
+BEGIN:VCARD
+VERSION:3.0
+N:García;Laura;;;
+FN:Laura García
+TEL;TYPE=CELL:606864549
+EMAIL;TYPE=WORK:
+ADR;TYPE=HOME:
+NOTE:Observaciones: Cliente nuevo
+END:VCARD

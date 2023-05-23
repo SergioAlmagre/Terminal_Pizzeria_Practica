@@ -1,14 +1,17 @@
 package BBDD
 
+import Datos.Datos
 import Datos.Factoria
 import Pizzeria.*
+import Personas.Cliente
+import Personas.Empleado
+import RespuestasTablasConexion.ResTabEsta
+import RespuestasTablasConexion.ResumenPedido
 import Utilidades.Mensaje
 import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.ResultSet
 import java.sql.Statement
-import java.time.LocalDate
-import java.time.LocalTime
 
 object Conexion {
 
@@ -20,6 +23,9 @@ object Conexion {
 
     // Atributo que nos permite ejecutar una sentencia SQL
     var registros: ResultSet? = null
+
+    var mensaje = ""
+    var cod = 0
 
 
     fun abrirConexion(): Int {
@@ -35,8 +41,7 @@ object Conexion {
             sentenciaSQL = conexion!!.createStatement()
 //            println("Conexion realizada con éxito")
         } catch (e: Exception) {
-            println("Exception: " + e.message)
-            cod = -1
+            Datos.gestionErrores(e,"Fallo en abrir conexión")
         }
         return cod
     }
@@ -46,16 +51,15 @@ object Conexion {
         try {
             conexion!!.close()
 
-        } catch (ex: Exception) {
-            println("Error al cerrar la conexión.")
-            cod = -1
+        } catch (e: Exception) {
+            Datos.gestionErrores(e,"Fallo en cerrar conexión")
         }
         return cod
     }
 
     fun obtenerClienteDni(dni:String): Cliente? {
         var sentencia = "select * from cliente where dni = ?"
-        var cli:Cliente? = null
+        var cli: Cliente? = null
         try{
             abrirConexion()
             var pstmt = conexion!!.prepareStatement(sentencia)
@@ -69,19 +73,17 @@ object Conexion {
                 registros!!.getString(4),
                 registros!!.getString(5),
                 registros!!.getString(6),
-                )}
-        }catch (ex:Exception){
-            println(ex)
-            Mensaje.mostrarMensaje("Ha habido un problema con la extracción de datos")
+                )
+            }
+        }catch (e:Exception){
+            Datos.gestionErrores(e,sentencia)
         }
         return cli
     }
 
-    fun loginEmpleado(dni: String,contraseña:String):RespuestaConexion?{
+    fun loginEmpleado(dni: String,contraseña:String): Empleado?{
         var sentencia = "select * from empleado where dni = ? and contraseña = ?"
-        var emple:Empleado? = null
-        var cod:Int = 0
-        var rc:RespuestaConexion? = null
+        var emple: Empleado? = null
         try{
             abrirConexion()
             var pstmt = conexion!!.prepareStatement(sentencia)
@@ -99,18 +101,16 @@ object Conexion {
                     registros!!.getString(7),
                     registros!!.getString(8)
                 )
-                cod = 1
             }
             cerrarConexion()
-        }catch (ex:Exception){
-            println(ex)
-            cod = -1
+        }catch (e:Exception){
+            Datos.gestionErrores(e,sentencia)
         }
-        rc = RespuestaConexion(cod,emple!!)
-        return rc
+        return emple
     }
 
-    fun modificarEmpleado(emple:Empleado){
+    fun modificarEmpleado(emple: Empleado):Int{
+        cod = 0
         var sentencia = "update empleado set nombre = ?, apellido = ?, dni = ?, telefono = ?,dni = ? , contraseña = ?, tipo = ?, observaciones = ?"
         try {
             abrirConexion()
@@ -124,15 +124,17 @@ object Conexion {
             pstmt.setString(7,emple.observaciones)
             pstmt.executeUpdate()
             cerrarConexion()
-        }catch (ex:Exception){
-            println(ex)
-            Mensaje.mostrarMensaje("Ha habido un problema con los datos")
+            cod = 1
+        }catch (e:Exception){
+            Datos.gestionErrores(e,sentencia)
         }
+        return cod
     }
 
 
-    fun insertarCliente(cli:Cliente){
+    fun insertarCliente(cli: Cliente):Int{
         var sentencia = "insert into cliente values (?,?,?,?,?,?)"
+        cod = 0
         try {
             abrirConexion()
             var pstmt = conexion!!.prepareStatement(sentencia)
@@ -144,11 +146,11 @@ object Conexion {
             pstmt.setString(6,cli.observaciones)
             pstmt.executeUpdate()
             cerrarConexion()
-            Mensaje.mostrarMensaje("Insertado con éxito")
-        }catch (ex:Exception){
-            println(ex)
-            Mensaje.mostrarMensaje("Ha habido un problema con la entrada de datos")
+            cod = 1
+        }catch (e:Exception){
+            Datos.gestionErrores(e,sentencia)
         }
+        return cod
     }
 
     fun totalEmpleados():Int{
@@ -162,8 +164,8 @@ object Conexion {
             }
             pstmt.executeUpdate()
             cerrarConexion()
-        }catch (ex:Exception){
-            println(ex)
+        }catch (e:Exception){
+            Datos.gestionErrores(e,sentencia)
         }
         return cantidad
     }
@@ -179,8 +181,8 @@ object Conexion {
             }
             pstmt.executeUpdate()
             cerrarConexion()
-        }catch (ex:Exception){
-            println(ex)
+        }catch (e:Exception){
+            Datos.gestionErrores(e,sentencia)
         }
         return cantidad
     }
@@ -207,9 +209,8 @@ object Conexion {
                 arrayEmple.add(emple)
             }
             cerrarConexion()
-        }catch (ex:Exception){
-            println(ex)
-            Mensaje.mostrarMensaje("Ha habido un problema con la extracción de datos")
+        }catch (e:Exception){
+            Datos.gestionErrores(e,sentencia)
         }
         return arrayEmple
     }
@@ -234,42 +235,17 @@ object Conexion {
                 arrayCliente.add(cli)
             }
             cerrarConexion()
-        }catch (ex:Exception){
-            println(ex)
-            Mensaje.mostrarMensaje("Ha habido un problema con la extracción de datos")
+        }catch (e:Exception){
+            Datos.gestionErrores(e,sentencia)
         }
         return arrayCliente
     }
-
-//    fun resulTablaClientesAdmin():ArrayList<ResTabClientesAdmin>{
-//        var sentencia = "select cliente.nombre, cliente.dni, count(*) from pedido left join cliente on cliente.telefono = pedido.telefonocliente"
-//        var res:ResTabClientesAdmin? = null
-//        var resultados = ArrayList<ResTabClientesAdmin>()
-//        try {
-//            abrirConexion()
-//            var pstmt = conexion!!.prepareStatement(sentencia)
-//            registros = pstmt.executeQuery()
-//            while (registros!!.next()){
-//                res = ResTabClientesAdmin(
-//                    registros!!.getString(1),
-//                    registros!!.getString(2),
-//                    registros!!.getInt(3)
-//                )
-//                resultados.add(res)
-//            }
-//            cerrarConexion()
-//        }catch (ex:Exception){
-//            println(ex)
-//            println("Fallo en ResuTabalClient")
-//        }
-//        return resultados
-//    }
 
     fun resultadosTablaEstacion():ArrayList<ResTabEsta>{
         var sentencia = "select pedido.numeropedido, cliente.dni, cliente.nombre, cliente.telefono, pedido.mesa, pizza.precio " +
                 "from pedido join cliente on cliente.telefono = pedido.telefonocliente join pizza on pizza.id = pedido.idpizza group by pedido.numeropedido, " +
                 "cliente.dni, cliente.nombre, cliente.telefono, pedido.mesa"
-        var res:ResTabEsta? = null
+        var res: ResTabEsta? = null
         var resultados = ArrayList<ResTabEsta>()
         try {
             abrirConexion()
@@ -287,18 +263,18 @@ object Conexion {
                 resultados.add(res)
             }
             cerrarConexion()
-        }catch (ex:Exception){
-            println("Fallo en resulTablaEstacion")
-            println(ex)
+        }catch (e:Exception){
+            Datos.gestionErrores(e,sentencia)
         }
         return resultados
 
     }
 
 
-    fun insertarPizza(pizza: Pizza){
+    fun insertarPizza(pizza: Pizza):Int{
         var sentencia = "insert into pizza values (default,?,?,?,?,?,?)"
         var pi: Pizza? = null
+        cod = 0
         try {
             abrirConexion()
             var pstmt = conexion!!.prepareStatement(sentencia)
@@ -310,16 +286,14 @@ object Conexion {
             pstmt.setString(6,pizza.hora)
             pstmt.executeUpdate()
             cerrarConexion()
+            cod = 1
         }catch (e:Exception){
-            println(e)
-            Mensaje.mostrarMensaje("Ha habído un fallo en la inserción de datos")
-            println("problema en funcion insertarPizza")
+            Datos.gestionErrores(e,sentencia)
         }
-
+        return cod
     }
 
     fun obtenerIdPizza(hora:String):Int{
-
         var idPi:Int = 0
         var sentencia = "select id from pizza where hora like ?"
         try {
@@ -332,18 +306,14 @@ object Conexion {
             }
             cerrarConexion()
         }catch (e:Exception){
-            println(e)
-            Mensaje.mostrarMensaje("No se ha podido obtener el id de la pizza por algún problema desconocido")
-            println("problema en funcion obtenerPizza")
+            Datos.gestionErrores(e,sentencia)
         }
         return idPi
     }
 
 
-
-// COMO SE PODRIA PLANTEAR LAS CONSULTAS PARA GESTIONAR QUE SE SUME EL TIEMPO DE ESPERA
-//    SI SE PUDIERA AÑADIR MAS DE UNA PIZZA A UN MISMO PEDIDO?????? 2 PREGUNTAS EN UNA
-    fun insertarPedido(pedido:Pedido){
+    fun insertarPedido(pedido:Pedido):Int{
+        cod = 0
         var sentencia = "insert into pedido values (default,?,?,?,?,?,?,?,?)"
         try {
             abrirConexion()
@@ -358,43 +328,19 @@ object Conexion {
             pstmt.setDouble(8,pedido.precioTotal)
             pstmt.executeUpdate()
             cerrarConexion()
-            Mensaje.mostrarMensaje("Pedido lanzado!")
-        }catch (ex:Exception){
-            println(ex)
-            println("problema en funcion insertarPedido")
+            cod = 1
+            Mensaje.generico("Pedido lanzado!")
+        }catch (e:Exception){
+            Datos.gestionErrores(e,sentencia)
         }
+        return cod
     }
 
-//    fun obtenerPedido(numeroPedido:Int):Pedido?{
-//        var sentencia = "select * from pedido where numpedido = ?"
-//        var ped: Pedido? = null
-//        try {
-//            var pstmt = conexion!!.prepareStatement(sentencia)
-//            pstmt.setInt(1,numeroPedido)
-//            registros = pstmt.executeQuery()
-//            while(registros!!.next()){
-//                ped = Pedido(
-//                    registros!!.getInt(1),
-//                    registros!!.getString(2),
-//                    registros!!.getString(3),
-//                    registros!!.getString(4),
-//                    registros!!.getInt(5),
-//                    registros!!.getInt(6),
-//                    registros!!.getInt(7),
-//                    registros!!.getInt(8)
-//                )
-//            }
-//
-//        }catch (ex:Exception){
-//            println(ex)
-//        }
-//        return ped
-//    }
 
 // COMO PUEDO USAR COMODINES EN LOS LAS CADENAS PARA BUSCAR POR EJEMPLO CADENAS QUE CONTENGAN %MAR% CON UNA SENTENCIA PREPARADA??
-    fun buscarEmpleado(nombre:String):ArrayList<Empleado>?{
+    fun obtenerEmpleadobyNombre(nombre:String):ArrayList<Empleado>?{
         var sentencia = "select * from empleado where upper (nombre) like ?"
-        var emple:Empleado? = null
+        var emple: Empleado? = null
         var arrayEmple = ArrayList<Empleado>()
         try {
             abrirConexion()
@@ -415,15 +361,43 @@ object Conexion {
                 arrayEmple.add(emple)
             }
             cerrarConexion()
-        }catch (ex:Exception){
-            println(ex)
+        }catch (e:Exception){
+            Datos.gestionErrores(e,sentencia)
         }
         return arrayEmple
     }
 
-    fun buscarCliente(nombre:String):ArrayList<Cliente>?{
+    fun obtenerEmpleadoByDni(dni: String): Empleado?{
+        var sentencia = "select * from empleado where upper (dni) like ?"
+        var emple: Empleado? = null
+        try {
+            abrirConexion()
+            var pstmt = conexion!!.prepareStatement(sentencia)
+            pstmt.setString(1,dni)
+            registros = pstmt.executeQuery()
+            if (registros!!.next()){
+                emple = Empleado(
+                    registros!!.getString(1),
+                    registros!!.getString(2),
+                    registros!!.getString(3),
+                    registros!!.getString(4),
+                    registros!!.getString(5),
+                    registros!!.getInt(6),
+                    registros!!.getString(7),
+                    registros!!.getString(8)
+                )
+            }
+            cerrarConexion()
+        }catch (e:Exception){
+            Datos.gestionErrores(e,sentencia)
+        }
+        return emple
+    }
+
+
+    fun buscarClienteNombre(nombre:String):ArrayList<Cliente>?{
         var sentencia = "select * from cliente where upper (nombre) like ?"
-        var cli:Cliente? = null
+        var cli: Cliente? = null
         var arrayCli = ArrayList<Cliente>()
         try {
             abrirConexion()
@@ -442,73 +416,75 @@ object Conexion {
                 arrayCli.add(cli)
             }
             cerrarConexion()
-        }catch (ex:Exception){
-            println(ex)
+        }catch (e:Exception){
+            Datos.gestionErrores(e,sentencia)
         }
         return arrayCli
     }
 
+    fun buscarClienteTelefono(telefono:String): ArrayList<Cliente>?{
+        var sentencia = "select * from cliente where telefono like ?"
+        var cli: Cliente? = null
+        var listaClientes = ArrayList<Cliente>()
+        try {
+            abrirConexion()
+            var pstmt = conexion!!.prepareStatement(sentencia)
+            pstmt.setString(1,telefono)
+            registros = pstmt.executeQuery()
+            while (registros!!.next()){
+                cli = Cliente(
+                    registros!!.getString(1),
+                    registros!!.getString(2),
+                    registros!!.getString(3),
+                    registros!!.getString(4),
+                    registros!!.getString(5),
+                    registros!!.getString(6)
+                )
+                listaClientes.add(cli)
+            }
+            cerrarConexion()
+        }catch (e:Exception){
+            Datos.gestionErrores(e,sentencia)
+        }
+        return listaClientes
+    }
 
-//    fun buscarClienteResTablaAdmin(nombre:String):ArrayList<ResTabClientesAdmin>?{
-//        var sentencia = "select cliente.nombre, cliente.dni, count (*) from pedido join cliente on " +
-//                "cliente.telefono = pedido.telefonocliente where upper (nombre) like ?"
-//        println(sentencia)
-//        var res: ResTabClientesAdmin? = null
-//        var arrayRes: ArrayList<ResTabClientesAdmin> = ArrayList()
-//        try {
-//            abrirConexion()
-//            var pstmt = conexion!!.prepareStatement(sentencia)
-//            pstmt.setString(1,nombre)
-//                registros = pstmt.executeQuery()
-//                while (registros!!.next()){
-//                    res = ResTabClientesAdmin(
-//                        registros!!.getString(1),
-//                        registros!!.getString(2),
-//                        registros!!.getInt(3)
-//                    )
-//                    arrayRes.add(res)
-//                }
-//                cerrarConexion()
-//            }catch (ex:Exception){
-//                println(ex)
-//            println("Fallo en busclieRestTAbla")
-//                Mensaje.mostrarMensaje("Ha habido un problema con la extracción de datos")
-//            }
-//            return arrayRes
-//    }
 
-    fun darDeBajaEmpleado(dni:String){
+    fun darDeBajaEmpleado(dni:String):Int{
         var sentencia = "delete from empleado where dni = ?"
+        cod = 0
         try{
             abrirConexion()
             var pstmt = conexion!!.prepareStatement(sentencia)
             pstmt.setString(1,dni)
             pstmt.executeUpdate()
             cerrarConexion()
-            Mensaje.mostrarMensaje("Empleado borrado con éxito")
-        }catch (ex:Exception){
-            println(ex)
-            Mensaje.mostrarMensaje("Ha habido algun error o no se ha encontrado al empleado")
+            cod = 1
+        }catch (e:Exception){
+            Datos.gestionErrores(e,sentencia)
         }
+        return cod
     }
 
-    fun darDeBajaCliente(dni:String){
+
+    fun darDeBajaCliente(dni:String):Int{
         var sentencia = "delete from cliente where dni = ?"
+        cod = 0
         try{
             abrirConexion()
             var pstmt = conexion!!.prepareStatement(sentencia)
             pstmt.setString(1,dni)
             pstmt.executeUpdate()
             cerrarConexion()
-            Mensaje.mostrarMensaje("Cliente borrado con éxito")
-        }catch (ex:Exception){
-            println(ex)
-            Mensaje.mostrarMensaje("Ha habido algun error o no se ha encontrado al empleado")
+            cod = 1
+        }catch (e:Exception){
+            Datos.gestionErrores(e,sentencia)
         }
+        return cod
     }
 
 
-    fun insertarEmpleado(emple:Empleado){
+    fun insertarEmpleado(emple: Empleado){
         var sentencia = "insert into empleado values (?,?,?,?,?,?,?,?)"
         try {
             abrirConexion()
@@ -523,20 +499,20 @@ object Conexion {
             pstmt.setString(8,emple.rutaFoto)
             pstmt.executeUpdate()
             cerrarConexion()
-            Mensaje.mostrarMensaje("Usuario insertado con éxito!")
-        }catch (ex:Exception){
-            println(ex)
-            Mensaje.mostrarMensaje("Ha habido un error con la inserción de datos")
+            Mensaje.generico("Usuario insertado con éxito!")
+        }catch (e:Exception){
+            Datos.gestionErrores(e,sentencia)
         }
     }
 
-    fun obtenerResumen(numPedido:Int):ResumenPedido?{
+    fun obtenerResumen(numPedido:Int): ResumenPedido?{
+        println(numPedido)
         var sentencia = "select cliente.nombre, cliente.apellido, cliente.dni, cliente.telefono," +
                 " cliente.direccion, pizza.id, pizza.nombre, pizza.tamaño, pizza.especial," +
                 " pizza.ingrextra, pedido.numeropedido, pedido.fecha, pedido.hora, pedido.atendidoenlocal," +
                 " pedido.mesa, pedido.preciototal from pedido join pizza on pizza.id = pedido.idpizza" +
                 " join cliente on cliente.telefono = pedido.telefonocliente where pedido.numeropedido = ?"
-        var resu:ResumenPedido? = null
+        var resu: ResumenPedido? = null
         try {
             abrirConexion()
             var pstmt = conexion!!.prepareStatement(sentencia)
@@ -562,11 +538,9 @@ object Conexion {
                 registros!!.getDouble(16)
                 )
             }
-
             cerrarConexion()
-        }catch (ex:Exception){
-            println(ex)
-            Mensaje.mostrarMensaje("Ha habido algún error al mostrar el resumen del pedido")
+        }catch (e:Exception){
+            Datos.gestionErrores(e,sentencia)
         }
         return resu
     }
@@ -586,8 +560,7 @@ object Conexion {
             }
             cerrarConexion()
         }catch (e:Exception){
-            println(e)
-            Mensaje.mostrarMensaje("Ha habido un problema al intentar obtener el número de pedido")
+            Datos.gestionErrores(e,sentencia)
         }
     return num
     }
@@ -598,7 +571,7 @@ object Conexion {
             insertarEmpleado(Factoria.factoriaEmpleado())
         }
         }catch (e:Exception){
-            println(e)
+            Datos.gestionErrores(e,"Fallo en insertar 10 empleados")
         }
     }
 
@@ -608,10 +581,27 @@ object Conexion {
                 insertarCliente(Factoria.factoriaCliente())
             }
         }catch (e:Exception){
-            println(e)
+            Datos.gestionErrores(e,"Fallo en insertar 10 clientes")
         }
-
     }
+
+    fun cancelarPedido(numeroPedido:Int):Int{
+        cod = 0
+        var sentencia = "delete from pedido where numeropedido = ?"
+        try {
+            abrirConexion()
+            var pstmt = conexion!!.prepareStatement(sentencia)
+            pstmt.setInt(1,numeroPedido)
+            pstmt.executeUpdate()
+            cerrarConexion()
+            cod = 1
+        }catch(e:Exception){
+            Datos.gestionErrores(e,sentencia)
+        }
+        return  cod
+    }
+
+
 
 
 

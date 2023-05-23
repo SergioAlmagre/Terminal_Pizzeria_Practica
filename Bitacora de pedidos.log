@@ -1,0 +1,5 @@
+2023-05-21 - 19:02:09.4 - Pedido(numPedido=null, telefonoCliente='650741236', fecha='2023-05-21', hora='19:01:53.4', idPizza=112, tiempoEspera=20.0, precioTotal=12.5, atendidoEnLocal=0, mesa=3)
+2023-05-21 - 19:02:49.4 - Pedido(numPedido=null, telefonoCliente='671717707', fecha='2023-05-21', hora='19:01:53.4', idPizza=113, tiempoEspera=20.0, precioTotal=14.8, atendidoEnLocal=0, mesa=2)
+2023-05-21 - 19:05:28 - Pedido(numPedido=83, telefonoCliente='651893292', fecha='2023-05-21', hora='19:05:05.7', idPizza=114, tiempoEspera=20.0, precioTotal=12.5, atendidoEnLocal=0, mesa=3)
+2023-05-21 - 19:06:04 - Pedido(numPedido=84, telefonoCliente='85241778Q', fecha='2023-05-21', hora='19:05:05.7', idPizza=115, tiempoEspera=20.0, precioTotal=10.5, atendidoEnLocal=0, mesa=8)
+2023-05-21 - 19:17:11 - Pedido(numPedido=85, telefonoCliente='653152570', fecha='2023-05-21', hora='19:16:55.1', idPizza=116, tiempoEspera=20.0, precioTotal=12.5, atendidoEnLocal=0, mesa=4) - Atendido por: Pablo Fernández

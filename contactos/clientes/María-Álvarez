@@ -1,0 +1,9 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Álvarez;María;;;
+FN:María Álvarez
+TEL;TYPE=CELL:653152570
+EMAIL;TYPE=WORK:
+ADR;TYPE=HOME:
+NOTE:Observaciones: Plaza España, 8
+END:VCARD

@@ -1,13 +1,13 @@
 package Datos
 
-import Pizzeria.Cliente
-import Pizzeria.Empleado
+import Personas.Cliente
+import Personas.Empleado
 import kotlin.random.Random
 
 object Factoria {
 
 
-    fun factoriaCliente():Cliente{
+    fun factoriaCliente(): Cliente {
 
         val nombres = listOf("Juan", "Ana", "Pedro", "Lucía", "Sofía", "Miguel", "Laura", "Luis", "María", "Carlos")
         val apellidos = listOf("García", "Fernández", "Martínez", "González", "López", "Pérez", "Rodríguez", "Sánchez", "Romero", "Álvarez")
@@ -29,7 +29,7 @@ object Factoria {
     }
 
 
-    fun factoriaEmpleado():Empleado{
+    fun factoriaEmpleado(): Empleado {
 
         val nombres = listOf("Juan", "Pedro", "Lucía", "María", "Pablo", "Ana", "Luis", "Laura", "Miguel", "Jorge")
         val apellidos = listOf("Gómez", "Martínez", "Fernández", "Rodríguez", "García", "Pérez", "Sánchez", "Jiménez", "Alonso", "Gutiérrez")

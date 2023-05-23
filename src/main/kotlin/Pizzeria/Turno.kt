@@ -1,5 +1,7 @@
 package Pizzeria
 
+import Personas.Empleado
+
 /**
  * Turno
  * horario:
@@ -13,7 +15,7 @@ class Turno {
     var empleado: Empleado
     var fecha:String
 
-    constructor(horario: Int, empleado:Empleado, fecha:String) {
+    constructor(horario: Int, empleado: Empleado, fecha:String) {
         this.horario = horario
         this.empleado = empleado
         this.fecha = fecha

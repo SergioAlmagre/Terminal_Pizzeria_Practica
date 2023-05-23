@@ -1,0 +1,9 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Pérez;Lucía;;;
+FN:Lucía Pérez
+TEL;TYPE=CELL:753951468
+EMAIL;TYPE=WORK:
+ADR;TYPE=HOME:
+NOTE:Observaciones: Pendiente de pago
+END:VCARD

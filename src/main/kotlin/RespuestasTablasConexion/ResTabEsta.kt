@@ -1,4 +1,4 @@
-package Pizzeria
+package RespuestasTablasConexion
 
 data class ResTabEsta(val numPedido:Int?,
                       val dniCliente:String?,

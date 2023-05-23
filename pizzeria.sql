@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-05-2023 a las 17:58:33
+-- Tiempo de generación: 21-05-2023 a las 19:18:02
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -127,11 +127,6 @@ CREATE TABLE `empleado` (
 --
 
 INSERT INTO `empleado` (`nombre`, `apellido`, `telefono`, `dni`, `contraseña`, `tipo`, `observaciones`, `rutafoto`) VALUES
-('Lucía', 'Fernández', '623456789', '23387263', '1234', 0, 'Buen vendedor', '8'),
-('Ana', 'Sánchez', '699876543', '26656046', '1234', 0, 'Habla varios idiomas', '7'),
-('Luis', 'Rodríguez', '688765432', '29210551', '1234', 1, 'Habla varios idiomas', '5'),
-('Pedro', 'Jiménez', '679401777', '30453861', '1234', 1, 'Cliente habitual', '6'),
-('María', 'Rodríguez', '634567890', '30810468', '1234', 0, 'Habla varios idiomas', '3'),
 ('Pablo', 'Alonso', '698525784', '31267770', '1234', 1, 'Siempre llega tarde', '2'),
 ('Miguel', 'Jiménez', '677654321', '38001911', '1234', 1, 'Habla varios idiomas', '4'),
 ('Lucía', 'Pérez', '678123456', '38033661', '1234', 1, 'Habla varios idiomas', '6'),
@@ -206,13 +201,15 @@ CREATE TABLE `pedido` (
 --
 
 INSERT INTO `pedido` (`numeropedido`, `fecha`, `tiempoespera`, `atendidoenlocal`, `mesa`, `idpizza`, `telefonocliente`, `hora`, `preciototal`) VALUES
-(48, '2023-05-14', 20.00, 0, 5, 86, '653152570', '17:09:05.9', 12.50),
-(49, '2023-05-14', 20.00, 0, 3, 87, '673572919', '17:09:05.9', 13.60),
-(50, '2023-05-14', 20.00, 0, 4, 88, '696316676', '17:16:37.4', 11.50),
-(51, '2023-05-14', 20.00, 0, 4, 89, '696316676', '17:16:37.4', 11.50),
-(52, '2023-05-14', 20.00, 0, 4, 90, '650741236', '17:16:37.4', 11.50),
-(53, '2023-05-14', 20.00, 0, 4, 91, '684822853', '17:27:13.4', 12.50),
-(54, '2023-05-14', 20.00, 1, 0, 92, '659453370', '17:57:06.1', 12.50);
+(77, '2023-05-21', 20.00, 0, 5, 108, '85241778Q', '12:42:34.8', 12.50),
+(78, '2023-05-21', 20.00, 0, 3, 109, '600097711', '12:42:34.8', 13.80),
+(79, '2023-05-21', 20.00, 0, 2, 110, '696316676', '12:48:29.0', 10.50),
+(80, '2023-05-21', 20.00, 0, 4, 111, '600097711', '12:50:55.1', 12.50),
+(81, '2023-05-21', 20.00, 0, 3, 112, '650741236', '19:01:53.4', 12.50),
+(82, '2023-05-21', 20.00, 0, 2, 113, '671717707', '19:01:53.4', 14.80),
+(83, '2023-05-21', 20.00, 0, 3, 114, '651893292', '19:05:05.7', 12.50),
+(84, '2023-05-21', 20.00, 0, 8, 115, '85241778Q', '19:05:05.7', 10.50),
+(85, '2023-05-21', 20.00, 0, 4, 116, '653152570', '19:16:55.1', 12.50);
 
 -- --------------------------------------------------------
 
@@ -326,7 +323,31 @@ INSERT INTO `pizza` (`id`, `nombre`, `precio`, `tamaño`, `especial`, `ingrextra
 (89, 'Marinera', 11.5, 1, 0, 0, '17:16:37.4'),
 (90, 'Marinera', 11.5, 1, 0, 0, '17:16:37.4'),
 (91, 'Carbonara', 12.5, 1, -1, 2, '17:27:13.4'),
-(92, 'Carbonara', 12.5, 1, 1, 0, '17:57:06.1');
+(92, 'Carbonara', 12.5, 1, 1, 0, '17:57:06.1'),
+(93, 'Especial de la casa', 14.5, 1, 2, 3, '15:45:23.0'),
+(94, 'Especial de la casa', 14.5, 2, 2, 3, '16:28:02.7'),
+(95, 'Especial de la casa', 14.5, 2, 2, 3, '19:36:25.3'),
+(96, 'Carbonara', 12.5, 2, 1, 1, '19:36:25.3'),
+(97, 'Carbonara', 12.5, 2, 1, 1, '19:36:25.3'),
+(98, 'Especial de la casa', 14.5, 1, 2, 3, '21:11:53.382684800'),
+(99, 'Especial de la casa', 14.5, 1, 2, 3, '21:16:24.956285500'),
+(100, 'Especial de la casa', 14.5, 1, 2, 3, '21:22:20.042727700'),
+(101, 'Especial de la casa', 14.5, 1, 2, 3, '21:26:21.418793400'),
+(102, 'Especial de la casa', 14.5, 2, 2, 3, '21:27:55.624284'),
+(103, 'Especial de la casa', 14.5, 0, 2, 3, '21:33:45.068836600'),
+(104, 'Especial de la casa', 16.3, 1, 2, 3, '21:41:33.127003700'),
+(105, 'Especial de la casa', 14.5, 2, 2, 3, '12:24:49.349033'),
+(106, 'Especial de la casa', 14.5, 2, 1, 3, '12:24:49.349033'),
+(107, 'Especial de la casa', 14.5, 0, 2, 3, '12:30:47.237145900'),
+(108, 'Carbonara', 12.5, 1, 0, 2, '12:42:34.8'),
+(109, 'Queso', 13.8, 2, 0, -1, '12:42:34.8'),
+(110, 'Queso', 10.5, 1, -1, -1, '12:48:29.0'),
+(111, 'Carbonara', 12.5, 0, 1, 0, '12:50:55.1'),
+(112, 'Carbonara', 12.5, 1, 1, 1, '19:01:53.4'),
+(113, 'Queso', 14.8, 1, -1, -1, '19:01:53.4'),
+(114, 'Carbonara', 12.5, 2, 1, 0, '19:05:05.7'),
+(115, 'Queso', 10.5, 1, -1, -1, '19:05:05.7'),
+(116, 'Carbonara', 12.5, 2, 1, 2, '19:16:55.1');
 
 -- --------------------------------------------------------
 
@@ -455,13 +476,13 @@ ALTER TABLE `turno`
 -- AUTO_INCREMENT de la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `numeropedido` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `numeropedido` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT de la tabla `pizza`
 --
 ALTER TABLE `pizza`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
 
 --
 -- AUTO_INCREMENT de la tabla `pizzeria`
