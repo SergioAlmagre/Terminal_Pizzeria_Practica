@@ -1,7 +1,7 @@
 package Datos
 
-import Personas.Cliente
-import Personas.Empleado
+import Pizzeria.Cliente
+import Pizzeria.Empleado
 import kotlin.random.Random
 
 object Factoria {

@@ -1,8 +1,8 @@
 package Datos
 
 import BBDD.Conexion
-import Personas.Cliente
-import Personas.Empleado
+import Pizzeria.Cliente
+import Pizzeria.Empleado
 import RespuestasTablasConexion.ResumenPedido
 import java.io.FileWriter
 import java.io.IOException

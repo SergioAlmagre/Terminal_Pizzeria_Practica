@@ -1,4 +1,4 @@
-package Personas
+package Pizzeria
 
 class Cliente: Persona {
 

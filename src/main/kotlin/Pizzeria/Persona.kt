@@ -1,4 +1,4 @@
-package Personas
+package Pizzeria
 
 open class Persona{
     val nombre: String

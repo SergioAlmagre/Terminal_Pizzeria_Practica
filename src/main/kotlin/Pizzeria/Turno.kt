@@ -1,7 +1,5 @@
 package Pizzeria
 
-import Personas.Empleado
-
 /**
  * Turno
  * horario:

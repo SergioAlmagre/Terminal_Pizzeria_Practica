@@ -3,8 +3,8 @@ package BBDD
 import Datos.Datos
 import Datos.Factoria
 import Pizzeria.*
-import Personas.Cliente
-import Personas.Empleado
+import Pizzeria.Cliente
+import Pizzeria.Empleado
 import RespuestasTablasConexion.ResTabEsta
 import RespuestasTablasConexion.ResumenPedido
 import Utilidades.Mensaje
